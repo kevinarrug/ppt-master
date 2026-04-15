@@ -38,6 +38,9 @@ python3 skills/ppt-master/scripts/finalize_svg.py <project_path>
 python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> -s final
 # Output: exports/<project_name>_<timestamp>.pptx + exports/<project_name>_<timestamp>_svg.pptx
 # Use --only native or --only legacy to generate just one version
+
+# Personal shortcut: validate + split + finalize + export in one go (use with caution)
+# alias ppt-build='python3 skills/ppt-master/scripts/total_md_split.py $1 && python3 skills/ppt-master/scripts/finalize_svg.py $1 && python3 skills/ppt-master/scripts/svg_to_pptx.py $1 -s final'
 ```
 
 ## Architecture
@@ -53,31 +56,4 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> -s final
 
 **Banned features**: `mask` | `<style>` | `class` | external CSS | `<foreignObject>` | `textPath` | `@font-face` | `<animate*>` | `<script>` | `<iframe>` | `<symbol>`+`<use>` (`id` inside `<defs>` is a legitimate reference and is NOT banned)
 
-**Conditionally allowed**: `marker-start` / `marker-end` — the referenced `<marker>` must live in `<defs>`, use `orient="auto"`, and its shape must be a triangle (3-vertex closed path/polygon), diamond (4-vertex), or circle/ellipse. The converter maps these to native DrawingML `<a:headEnd>` / `<a:tailEnd>`. See `shared-standards.md` §1.1 for full constraints.
-
-**Conditionally allowed**: `clipPath` on `<image>` — the referenced `<clipPath>` must live in `<defs>` and contain a single shape child (circle, ellipse, rect with rx/ry, path, or polygon). The converter maps these to native DrawingML picture geometry (`<a:prstGeom>` or `<a:custGeom>`). Only supported on `<image>` elements. See `shared-standards.md` §1.2 for full constraints.
-
-**PPT compatibility alternatives**:
-
-| Banned | Alternative |
-|--------|-------------|
-| `rgba()` | `fill-opacity` / `stroke-opacity` |
-| `<g opacity>` | Set opacity on each child element individually |
-| `<image opacity>` | Overlay with a mask layer |
-
-## Canvas Format Quick Reference
-
-| Format | viewBox |
-|--------|---------|
-| PPT 16:9 | `0 0 1280 720` |
-| PPT 4:3 | `0 0 1024 768` |
-| Xiaohongshu (RED) | `0 0 1242 1660` |
-| WeChat Moments | `0 0 1080 1080` |
-| Story | `0 0 1080 1920` |
-
-## Post-processing Notes
-
-- **NEVER** use `cp` as a substitute for `finalize_svg.py`
-- **NEVER** export directly from `svg_output/` — MUST export from `svg_final/` (use `-s final`)
-- Do NOT add extra flags like `--only` to the post-processing commands
-- **NEVER** run the three post-processing steps in a single code block or single shell invocation
+**Conditionally allowed**: `marker-start` / `marker-end`
