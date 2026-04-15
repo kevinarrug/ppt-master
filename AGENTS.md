@@ -28,7 +28,10 @@ PPT Master is an AI-driven presentation generation system. Through multi-role co
 <!-- Hugo: I primarily use this for converting research PDFs into presentation decks.
      Default aspect ratio 16:9 works well for most cases; use 4:3 only for older projectors.
      Tip: For dense academic papers, ask the Strategist to limit each slide to one key finding
-     to avoid overcrowded layouts. -->
+     to avoid overcrowded layouts.
+     Tip: When working with papers that have lots of figures/charts, instruct Image_Generator
+     to prefer recreating charts as DrawingML shapes rather than embedding raster images —
+     this keeps file sizes small and shapes remain editable in PowerPoint. -->
 
 ## Common Commands
 
@@ -43,8 +46,5 @@ node skills/ppt-master/scripts/source_to_md/web_to_md.cjs <URL>
 # Project management
 python3 skills/ppt-master/scripts/project_manager.py init <project_name> --format ppt169
 python3 skills/ppt-master/scripts/project_manager.py import-sources <project_path> <source_files_or_URLs...> --move
-python3 skills/ppt-master/scripts/project_manager.py validate <project_path>
-
-# Image tools
-python3 skills/ppt-master/scripts/analyze_images.py <
+python3 skills/
 ```
