@@ -40,7 +40,7 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> -s final
 # Use --only native or --only legacy to generate just one version
 
 # Personal shortcut: validate + split + finalize + export in one go (use with caution)
-# alias ppt-build='python3 skills/ppt-master/scripts/total_md_split.py $1 && python3 skills/ppt-master/scripts/finalize_svg.py $1 && python3 skills/ppt-master/scripts/svg_to_pptx.py $1 -s final'
+alias ppt-build='python3 skills/ppt-master/scripts/total_md_split.py $1 && python3 skills/ppt-master/scripts/finalize_svg.py $1 && python3 skills/ppt-master/scripts/svg_to_pptx.py $1 -s final'
 ```
 
 ## Architecture
@@ -54,6 +54,4 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> -s final
 
 ## SVG Technical Constraints (Non-negotiable)
 
-**Banned features**: `mask` | `<style>` | `class` | external CSS | `<foreignObject>` | `textPath` | `@font-face` | `<animate*>` | `<script>` | `<iframe>` | `<symbol>`+`<use>` (`id` inside `<defs>` is a legitimate reference and is NOT banned)
-
-**Conditionally allowed**: `marker-start` / `marker-end`
+**Banned featur
